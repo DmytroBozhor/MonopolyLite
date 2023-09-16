@@ -6,13 +6,21 @@ public class Player {
 
     private String name;
     private int currentSquare;
+    private int money;
+    private boolean available;
+    private int bannedRound;
+    private int banTime;
 
     public Player() {
     }
 
-    public Player(String name, int currentSquare) {
+    public Player(String name, int currentSquare, int money, boolean available, int bannedRound, int banTime) {
         this.name = name;
         this.currentSquare = currentSquare;
+        this.money = money;
+        this.available = available;
+        this.bannedRound = bannedRound;
+        this.banTime = banTime;
     }
 
     public String getName() {
@@ -31,8 +39,40 @@ public class Player {
         this.currentSquare = currentSquare;
     }
 
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public int getBannedRound() {
+        return bannedRound;
+    }
+
+    public void setBannedRound(int bannedRound) {
+        this.bannedRound = bannedRound;
+    }
+
+    public int getBanTime() {
+        return banTime;
+    }
+
+    public void setBanTime(int banTime) {
+        this.banTime = banTime;
+    }
+
     public void rollDice() {
-        int diceNumber = new Random().nextInt(0, 7);
+        int diceNumber = new Random().nextInt(1, 7);
         System.out.println("Player {$player} got {$diceNumber}"
                 .replace("{$player}", getName())
                 .replace("{$diceNumber}", String.valueOf(diceNumber)));
@@ -42,7 +82,7 @@ public class Player {
     private void increaseCurrentSquare(int diceNumber){
         this.setCurrentSquare(this.getCurrentSquare() + diceNumber);
         if (this.getCurrentSquare() > 24){
-            this.setCurrentSquare(32 - this.getCurrentSquare());
+            this.setCurrentSquare(24 - this.getCurrentSquare());
         }
     }
 }
