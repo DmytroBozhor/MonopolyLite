@@ -6,7 +6,7 @@ public class Player {
 
     private String name;
     private int currentSquare;
-    private int money;
+    private int money = 5000;
     private boolean available;
     private int bannedRound;
     private int banTime;
@@ -79,9 +79,9 @@ public class Player {
         this.increaseCurrentSquare(diceNumber);
     }
 
-    private void increaseCurrentSquare(int diceNumber){
+    public void increaseCurrentSquare(int diceNumber) {
         this.setCurrentSquare(this.getCurrentSquare() + diceNumber);
-        if (this.getCurrentSquare() > 24){
+        if (this.getCurrentSquare() > 24) {
             this.setCurrentSquare(24 - this.getCurrentSquare());
         }
     }

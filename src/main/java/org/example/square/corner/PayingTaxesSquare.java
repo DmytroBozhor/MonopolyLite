@@ -4,7 +4,7 @@ import org.example.Player;
 
 import java.util.Random;
 
-public class PayingPaxesSquare implements CornerSquare {
+public class PayingTaxesSquare implements CornerSquare {
     @Override
     public void doSquare(Player player) {
         int randomValue = new Random().nextInt(100, 1000);
