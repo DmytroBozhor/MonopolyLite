@@ -3,6 +3,7 @@ package org.example;
 import org.example.square.chance.ChanceSquareImplementation;
 import org.example.square.corner.*;
 import org.example.square.Square;
+import org.example.square.realestate.RealEstateSquare;
 import org.example.square.realestate.car.BMW;
 import org.example.square.realestate.car.Ferrari;
 import org.example.square.realestate.car.Lexus;
@@ -26,7 +27,10 @@ import java.util.*;
 
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
-    private static final Map<String, Square> GAME_MAP = new HashMap<>();
+    public static final Map<String, Square> GAME_MAP = new HashMap<>();
+    public static final List<Square> AVAILABLE_BUSINESSES = new ArrayList<>();
+    public static final Map<Square, Player> BOUGHT_BUSINESSES = new HashMap<>();
+    public static final Map<Square, Integer> SQUARE_TAXES = new HashMap<>();
     public static int roundCounter;
 
     static {
@@ -54,6 +58,23 @@ public class Main {
         GAME_MAP.put("22", new ChanceSquareImplementation());
         GAME_MAP.put("23", new KFC());
         GAME_MAP.put("24", new McDonald());
+
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("2"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("3"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("5"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("6"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("8"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("9"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("11"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("12"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("14"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("15"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("17"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("18"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("20"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("21"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("23"));
+        AVAILABLE_BUSINESSES.add(GAME_MAP.get("24"));
     }
 
     public static void main(String[] args) {
