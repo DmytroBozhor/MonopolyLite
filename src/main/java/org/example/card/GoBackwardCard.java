@@ -1,12 +1,19 @@
 package org.example.card;
 
+import org.example.Main;
 import org.example.Player;
+import org.example.square.Square;
 
 import java.util.Random;
 
 public class GoBackwardCard implements Card {
     @Override
     public void doCard(Player player) {
-        player.increaseCurrentSquare(-new Random().nextInt(0, 5));
+        doMessage(player);
+        int steps = -new Random().nextInt(1, 5);
+        System.out.println("They go {$value} step(-s) back"
+                .replace("{$value}", "" + steps));
+        player.increaseCurrentSquare(steps);
+        doSquareAgain(player);
     }
 }

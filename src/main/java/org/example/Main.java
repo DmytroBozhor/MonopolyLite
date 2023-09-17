@@ -30,7 +30,8 @@ public class Main {
     public static final Map<String, Square> GAME_MAP = new HashMap<>();
     public static final List<Square> AVAILABLE_BUSINESSES = new ArrayList<>();
     public static final Map<Square, Player> BOUGHT_BUSINESSES = new HashMap<>();
-    public static final Map<Square, Integer> SQUARE_TAXES = new HashMap<>();
+    public static final Map<Square, Integer> SQUARE_TAXES = new HashMap<>(); //// replace with field in estate squares classes
+    public static final Map<Square, Integer> SQUARE_PRICES = new HashMap<>(); // replace with field in estate squares classes
     public static int roundCounter;
 
     static {
@@ -75,6 +76,40 @@ public class Main {
         AVAILABLE_BUSINESSES.add(GAME_MAP.get("21"));
         AVAILABLE_BUSINESSES.add(GAME_MAP.get("23"));
         AVAILABLE_BUSINESSES.add(GAME_MAP.get("24"));
+
+        SQUARE_TAXES.put(GAME_MAP.get("2"), 150);
+        SQUARE_TAXES.put(GAME_MAP.get("3"), 180);
+        SQUARE_TAXES.put(GAME_MAP.get("5"), 140);
+        SQUARE_TAXES.put(GAME_MAP.get("6"), 160);
+        SQUARE_TAXES.put(GAME_MAP.get("8"), 200);
+        SQUARE_TAXES.put(GAME_MAP.get("9"), 220);
+        SQUARE_TAXES.put(GAME_MAP.get("11"), 150);
+        SQUARE_TAXES.put(GAME_MAP.get("12"), 130);
+        SQUARE_TAXES.put(GAME_MAP.get("14"), 150);
+        SQUARE_TAXES.put(GAME_MAP.get("15"), 150);
+        SQUARE_TAXES.put(GAME_MAP.get("17"), 170);
+        SQUARE_TAXES.put(GAME_MAP.get("18"), 180);
+        SQUARE_TAXES.put(GAME_MAP.get("20"), 200);
+        SQUARE_TAXES.put(GAME_MAP.get("21"), 210);
+        SQUARE_TAXES.put(GAME_MAP.get("23"), 170);
+        SQUARE_TAXES.put(GAME_MAP.get("24"), 140);
+
+        SQUARE_PRICES.put(GAME_MAP.get("2"), 1500);
+        SQUARE_PRICES.put(GAME_MAP.get("3"), 1700);
+        SQUARE_PRICES.put(GAME_MAP.get("5"), 1300);
+        SQUARE_PRICES.put(GAME_MAP.get("6"), 1400);
+        SQUARE_PRICES.put(GAME_MAP.get("8"), 1800);
+        SQUARE_PRICES.put(GAME_MAP.get("9"), 1900);
+        SQUARE_PRICES.put(GAME_MAP.get("11"), 1200);
+        SQUARE_PRICES.put(GAME_MAP.get("12"), 1100);
+        SQUARE_PRICES.put(GAME_MAP.get("14"), 1700);
+        SQUARE_PRICES.put(GAME_MAP.get("15"), 1500);
+        SQUARE_PRICES.put(GAME_MAP.get("17"), 1500);
+        SQUARE_PRICES.put(GAME_MAP.get("18"), 1600);
+        SQUARE_PRICES.put(GAME_MAP.get("20"), 1300);
+        SQUARE_PRICES.put(GAME_MAP.get("21"), 1700);
+        SQUARE_PRICES.put(GAME_MAP.get("23"), 1900);
+        SQUARE_PRICES.put(GAME_MAP.get("24"), 1300);
     }
 
     public static void main(String[] args) {
@@ -88,7 +123,7 @@ public class Main {
         while (true) {
             if (playerList.size() == 1) {
                 System.out.println("Player {$name} win!!!"
-                        .replace("{$name}", "" + playerList.get(0)));
+                        .replace("{$name}", "" + playerList.get(0).getName()));
                 break;
             }
             roundCounter++;
@@ -97,13 +132,29 @@ public class Main {
                 if (!player.isAvailable()) {
                     return;
                 }
-                player.rollDice();
+                checkBalanceOrRoll(player);
                 Square square = GAME_MAP.get("" + player.getCurrentSquare());
                 square.doSquare(player);
             });
         }
 
 
+    }
+
+    private static void checkBalanceOrRoll(Player player) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Roll dice - 1. Check balance - 2.");
+            String response = scanner.nextLine();
+            if (response.equals("1")) {
+                player.rollDice();
+                break;
+            } else if (response.equals("2")) {
+                System.out.println("Dima's balance is " + player.getMoney());
+            } else {
+                System.out.println("Command not recognized");
+            }
+        }
     }
 
     private static void initPlayers(List<Player> playerList) {
@@ -117,7 +168,7 @@ public class Main {
             player.setName(response);
             playerList.add(player);
         }
-        scanner.close();
+//        scanner.close();
     }
 
     private static void returnPlayerToGame(Player player) {

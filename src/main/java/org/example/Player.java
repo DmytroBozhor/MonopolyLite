@@ -5,7 +5,7 @@ import java.util.Random;
 public class Player {
 
     private String name;
-    private int currentSquare;
+    private int currentSquare = 1;
     private int money = 5000;
     private boolean available;
     private int bannedRound;
@@ -82,7 +82,7 @@ public class Player {
     public void increaseCurrentSquare(int diceNumber) {
         this.setCurrentSquare(this.getCurrentSquare() + diceNumber);
         if (this.getCurrentSquare() > 24) {
-            this.setCurrentSquare(24 - this.getCurrentSquare());
+            this.setCurrentSquare(this.getCurrentSquare() - 24);
         }
     }
 }

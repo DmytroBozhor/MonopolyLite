@@ -6,7 +6,8 @@ public class PoliceSquare implements CornerSquare {
     @Override
     public void doSquare(Player player) {
         player.setCurrentSquare(7);
-        System.out.println("Player goes to jail.");
+        System.out.println("Player {$player} goes to jail."
+                .replace("{$player}", player.getName()));
         new JailSquare().doSquare(player);
     }
 }

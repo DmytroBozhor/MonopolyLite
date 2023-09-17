@@ -7,7 +7,7 @@ import org.example.square.Square;
 import java.util.Scanner;
 
 public interface RealEstateSquare extends Square {
-    default void doSquare(Player player){
+    default void doSquare(Player player) {
         Square currentBusinessSquare = Main.GAME_MAP.get("" + player.getCurrentSquare());
         if (Main.AVAILABLE_BUSINESSES.contains(currentBusinessSquare)) {
             System.out.println("This square is available for purchasing.");
@@ -18,6 +18,10 @@ public interface RealEstateSquare extends Square {
                 if (response.equals("1")) {
                     Main.AVAILABLE_BUSINESSES.remove(currentBusinessSquare);
                     Main.BOUGHT_BUSINESSES.put(currentBusinessSquare, player);
+                    System.out.println("Player {$player} bought {$squareName} square"
+                            .replace("{$player}", player.getName())
+                            .replace("{$squareName}", currentBusinessSquare.getClass().getSimpleName()));
+                    player.setMoney(player.getMoney() - Main.SQUARE_PRICES.get(currentBusinessSquare));
                     break;
                 } else if (response.equals("2")) {
                     System.out.println("Player {$player} decided not to buy the square."
@@ -27,7 +31,7 @@ public interface RealEstateSquare extends Square {
                     System.out.println("Answer was not recognized. Try again!");
                 }
             }
-            scanner.close();
+//            scanner.close();
         } else {
             Player squareOwnerPlayer = Main.BOUGHT_BUSINESSES.get(currentBusinessSquare);
             Integer squareTax = Main.SQUARE_TAXES.get(currentBusinessSquare);
