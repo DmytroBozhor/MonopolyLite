@@ -3,7 +3,6 @@ package org.example;
 import org.example.square.chance.ChanceSquareImplementation;
 import org.example.square.corner.*;
 import org.example.square.Square;
-import org.example.square.realestate.RealEstateSquare;
 import org.example.square.realestate.car.BMW;
 import org.example.square.realestate.car.Ferrari;
 import org.example.square.realestate.car.Lexus;
@@ -32,6 +31,7 @@ public class Main {
     public static final Map<Square, Player> BOUGHT_BUSINESSES = new HashMap<>();
     public static final Map<Square, Integer> SQUARE_TAXES = new HashMap<>(); //// replace with field in estate squares classes
     public static final Map<Square, Integer> SQUARE_PRICES = new HashMap<>(); // replace with field in estate squares classes
+    public static final List<Player> PLAYER_LIST = new ArrayList<>();
     public static int roundCounter;
 
     static {
@@ -116,18 +116,16 @@ public class Main {
 
         System.out.println("Enter players' names. Once you're done type start");
 
-        List<Player> playerList = new ArrayList<>();
-
-        initPlayers(playerList);
+        initPlayers();
 
         while (true) {
-            if (playerList.size() == 1) {
+            if (PLAYER_LIST.size() == 1) {
                 System.out.println("Player {$name} win!!!"
-                        .replace("{$name}", "" + playerList.get(0).getName()));
+                        .replace("{$name}", "" + PLAYER_LIST.get(0).getName()));
                 break;
             }
             roundCounter++;
-            playerList.forEach(player -> {
+            PLAYER_LIST.forEach(player -> {
                 returnPlayerToGame(player);
                 if (!player.isAvailable()) {
                     return;
@@ -150,14 +148,16 @@ public class Main {
                 player.rollDice();
                 break;
             } else if (response.equals("2")) {
-                System.out.println("Dima's balance is " + player.getMoney());
+                System.out.println("{$Player}'s balance is {$balance}"
+                        .replace("{$Player}", player.getName())
+                        .replace("{$balance}", "" + player.getMoney()));
             } else {
                 System.out.println("Command not recognized");
             }
         }
     }
 
-    private static void initPlayers(List<Player> playerList) {
+    private static void initPlayers() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             Player player = new Player();
@@ -166,7 +166,7 @@ public class Main {
                 break;
             }
             player.setName(response);
-            playerList.add(player);
+            PLAYER_LIST.add(player);
         }
 //        scanner.close();
     }
